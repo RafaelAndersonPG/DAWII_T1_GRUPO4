@@ -1,25 +1,40 @@
 package com.cibertec.msrecargas.rabbitmq;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfig {
 
-	// Declara la cola (durable) si aun no existe en RabbitMQ.
+	public static final String RECARGAS_EXCHANGE = "recargas-exchange";
+	public static final String RIESGO_QUEUE = "Grupo4_Queue";
+	public static final String RIESGO_ROUTING_KEY = "recarga.registrada";
+
 	@Bean
-	public Queue riesgoQueue(@Value("${riesgo.queue}") String queueName) {
-		return new Queue(queueName, true);
+	public DirectExchange recargasExchange() {
+		return new DirectExchange(RECARGAS_EXCHANGE);
 	}
 
-	// Envia los mensajes como JSON legible.
 	@Bean
-	public MessageConverter jsonMessageConverter(ObjectMapper objectMapper) {
-		return new Jackson2JsonMessageConverter(objectMapper);
+	public Queue riesgoQueue() {
+		return new Queue(RIESGO_QUEUE);
+	}
+
+	@Bean
+	public Binding riesgoBinding(Queue riesgoQueue, DirectExchange recargasExchange) {
+		return BindingBuilder.bind(riesgoQueue)
+				.to(recargasExchange)
+				.with(RIESGO_ROUTING_KEY);
+	}
+
+	@Bean
+	public MessageConverter jsonMessageConverter() {
+		return new Jackson2JsonMessageConverter();
 	}
 }

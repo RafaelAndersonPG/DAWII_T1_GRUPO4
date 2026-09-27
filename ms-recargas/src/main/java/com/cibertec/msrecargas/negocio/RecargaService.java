@@ -38,10 +38,8 @@ public class RecargaService {
 					"idTarjeta y montoRecarga (mayor a 0) son obligatorios");
 		}
 
-		// 1. Validar que la tarjeta exista (OpenFeign -> ms-tarjetas).
 		TarjetaResponse tarjeta = obtenerTarjeta(request.idTarjeta());
 
-		// 2. Registrar con el saldo disponible de ms-tarjetas y la fecha del sistema.
 		Recarga recarga = Recarga.builder()
 				.idTarjeta(tarjeta.idTarjeta())
 				.saldoDisponible(tarjeta.saldoDisponible())
@@ -50,7 +48,6 @@ public class RecargaService {
 				.build();
 		Recarga guardada = recargaRepository.save(recarga);
 
-		// 3. Publicar la solicitud registrada en la cola para el area de Riesgo.
 		recargaProducer.publicar(new RecargaEvent(
 				guardada.getIdRecarga(),
 				guardada.getIdTarjeta(),

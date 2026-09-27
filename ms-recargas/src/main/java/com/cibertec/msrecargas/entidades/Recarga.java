@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-// Tabla recargas: id_recarga, id_tarjeta, saldo_disponible, monto_recarga, fecha_recarga.
 @Entity
 @Table(name = "recargas")
 @Data
