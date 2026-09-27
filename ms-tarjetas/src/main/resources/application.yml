@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ms-tarjetas
+  datasource:
+    url: jdbc:mysql://localhost:5510/appdb?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima
+    username: app
+    password: password
+  jpa:
+    hibernate:
+      ddl-auto: 'update'
+    show-sql: true
+
+server:
+  port: 8084
+  error:
+    include-message: always
