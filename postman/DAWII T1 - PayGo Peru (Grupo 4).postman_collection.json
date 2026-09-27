@@ -1,0 +1,332 @@
+{
+  "info": {
+    "_postman_id": "aea12766-bff2-4e98-a95c-0b207f9c2962",
+    "name": "DAWII T1 - PayGo Peru (Grupo 4)",
+    "description": "Pregunta 1: ms-tarjetas (8084) + ms-recargas (8085) con OpenFeign.\nPregunta 2: ms-recargas publica en RabbitMQ (Mesta_Queue) y ms-riesgo (8086) consume y registra en la tabla analisis.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "36194657",
+    "_collection_link": "https://go.postman.co/collection/36194657-aea12766-bff2-4e98-a95c-0b207f9c2962?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Pregunta 1 - ms-tarjetas (proveedor)",
+      "item": [
+        {
+          "name": "Registrar tarjeta 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));\npm.collectionVariables.set('idTarjeta', pm.response.json().idTarjeta);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"nomTitular\": \"Jennyfer Mesta\",\n    \"saldoAsignado\": 1500.00,\n    \"saldoDisponible\": 1000.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tarjetasUrl}}/tarjetas",
+              "host": [
+                "{{tarjetasUrl}}"
+              ],
+              "path": [
+                "tarjetas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"nomTitular\": \"Jennyfer Mesta\",\n    \"saldoAsignado\": 1500.00,\n    \"saldoDisponible\": 1000.00\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{tarjetasUrl}}/tarjetas",
+                  "host": [
+                    "{{tarjetasUrl}}"
+                  ],
+                  "path": [
+                    "tarjetas"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "transfer-encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 01:30:29 GMT"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"idTarjeta\": 1,\n  \"nomTitular\": \"Jennyfer Mesta\",\n  \"saldoAsignado\": 1500,\n  \"saldoDisponible\": 1000\n}"
+            }
+          ]
+        },
+        {
+          "name": "Registrar tarjeta 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status 201', () => pm.response.to.have.status(201));\npm.collectionVariables.set('idTarjeta', pm.response.json().idTarjeta);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nomTitular\": \"Rafael Ponte\",\n  \"saldoAsignado\": 1000.00,\n  \"saldoDisponible\": 500.00\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{tarjetasUrl}}/tarjetas",
+              "host": [
+                "{{tarjetasUrl}}"
+              ],
+              "path": [
+                "tarjetas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"nomTitular\": \"Rafael Ponte\",\n  \"saldoAsignado\": 1000.00,\n  \"saldoDisponible\": 500.00\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{tarjetasUrl}}/tarjetas",
+                  "host": [
+                    "{{tarjetasUrl}}"
+                  ],
+                  "path": [
+                    "tarjetas"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "transfer-encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 01:30:32 GMT"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"idTarjeta\": 2,\n  \"nomTitular\": \"Rafael Ponte\",\n  \"saldoAsignado\": 1000,\n  \"saldoDisponible\": 500\n}"
+            }
+          ]
+        },
+        {
+          "name": "Listar tarjetas",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tarjetasUrl}}/tarjetas",
+              "host": [
+                "{{tarjetasUrl}}"
+              ],
+              "path": [
+                "tarjetas"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "example",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{tarjetasUrl}}/tarjetas",
+                  "host": [
+                    "{{tarjetasUrl}}"
+                  ],
+                  "path": [
+                    "tarjetas"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "transfer-encoding",
+                  "value": "chunked"
+                },
+                {
+                  "key": "date",
+                  "value": "Sun, 27 Sep 2026 01:30:53 GMT"
+                },
+                {
+                  "key": "keep-alive",
+                  "value": "timeout=60"
+                },
+                {
+                  "key": "connection",
+                  "value": "keep-alive"
+                }
+              ],
+              "cookie": [],
+              "body": "[\n  {\n    \"idTarjeta\": 1,\n    \"nomTitular\": \"Jennyfer Mesta\",\n    \"saldoAsignado\": 1500,\n    \"saldoDisponible\": 1000\n  },\n  {\n    \"idTarjeta\": 2,\n    \"nomTitular\": \"Rafael Ponte\",\n    \"saldoAsignado\": 1000,\n    \"saldoDisponible\": 500\n  }\n]"
+            }
+          ]
+        },
+        {
+          "name": "Consultar tarjeta por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tarjetasUrl}}/tarjetas/1",
+              "host": [
+                "{{tarjetasUrl}}"
+              ],
+              "path": [
+                "tarjetas",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Consultar tarjeta inexistente (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{tarjetasUrl}}/tarjetas/5",
+              "host": [
+                "{{tarjetasUrl}}"
+              ],
+              "path": [
+                "tarjetas",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "tarjetasUrl",
+      "value": "http://localhost:8084"
+    },
+    {
+      "key": "recargasUrl",
+      "value": "http://localhost:8085"
+    },
+    {
+      "key": "riesgoUrl",
+      "value": "http://localhost:8086"
+    },
+    {
+      "key": "idTarjeta",
+      "value": ""
+    }
+  ]
+}
